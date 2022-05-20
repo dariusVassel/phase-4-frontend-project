@@ -1,21 +1,72 @@
 import React, { useState } from 'react'
+import { baseUrl, headers } from '../../Globals'
 
-export default function Signup() {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+export default function Signup({loginUser}) {
     const [signupInfo, setSignupInfo] = useState(false)
+    const [userData, setUserData] = useState({
+        username: "",
+        password: "",
+        bio: "",
+        first_name: "",
+        last_name: "",
+        phone: "",
+        email: "",
+        country: "",
+        image_url: ""
+    })
+
+    function handleUserData(e){
+        const name = e.target.name
+        const value = e.target.value
+
+        setUserData({
+            ...userData,
+            [name] : value
+        })
+    }
 
     function handleSubmit(e){
         e.preventDefault();
-
+        
         const strongParams = {
             user: {
-                username,
-                password
+                username: userData.username,
+                password: userData.password,
+                bio: userData.bio,
+                first_name: userData.first_name,
+                last_name: userData.last_name,
+                phone: userData.phone,
+                email: userData.email,
+                country: userData.country,
+                image_url: userData.image_url
             }
         }
 
-        fetch('http://localhost:3001')
+        console.log(strongParams)
+
+
+        fetch(baseUrl + '/users',{
+            method: "POST",
+            headers,
+            body: JSON.stringify(strongParams)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            loginUser(data.user)
+            localStorage.setItem('jwt', data.token)
+        })
+
+        setUserData({
+            username: "",
+            password: "",
+            bio: "",
+            first_name: "",
+            last_name: "",
+            phone: "",
+            email: "",
+            country: "",
+            image_url: ""
+        })
     }
 
     function toggleForm() {
@@ -25,50 +76,51 @@ export default function Signup() {
     return (
     <div>
         <h1>Create Account:</h1>
-        <form>
+        <form onSubmit = {handleSubmit}>
             {!signupInfo ?
             <div>
             <div>
-                <label for='username'>Username: </label>
-                <input type="text"  value="username" name="username" id="username" onChange={e => setUsername(e.target.value)}></input>
+                <label htmlFor='username'>Username: </label>
+                <input type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}></input>
             </div>
             <div>
-                <label for='password ' >Password: </label>
-                <input type="text" value="password" name="password" id="password" onChange={e => setPassword(e.target.value)}></input>
+                <label htmlFor='password ' >Password: </label>
+                <input type="password" value={userData.password} name="password" id="password" onChange={handleUserData}></input>
             </div> 
             </div>
             : 
             <div>
             <div>
-                <label for='first_name' >First Name: </label>
-                <input type="text" value="first_name" name="first_name" id="first_name" onChange={e => setPassword(e.target.password)}></input>
+                <label htmlFor='first_name' >First Name: </label>
+                <input type="text" value={userData.first_name} name="first_name" id="first_name" onChange={handleUserData}></input>
             </div> 
             <div>
-                <label for='last_name' >Last Name: </label>
-                <input type="text" value="last_name" name="last_name" id="last_name" onChange={e => setPassword(e.target.password)}></input>
+                <label htmlFor='last_name' >Last Name: </label>
+                <input type="text" value={userData.last_name} name="last_name" id="last_name" onChange={handleUserData}></input>
             </div> 
             <div>
-                <label for='bio'>Bio: </label>
-                <input type="text" value="bio" name="bio" id="bio" onChange={e => setPassword(e.target.password)}></input>
+                <label htmlFor='bio'>Bio: </label>
+                <input type="text" value={userData.bio} name="bio" id="bio" onChange={handleUserData}></input>
             </div> 
             <div>
-                <label for='phone_number'>Phone Number: </label>
-                <input type="text" value="phone_number" name="phone_number" id="phone_number" onChange={e => setPassword(e.target.password)}></input>
+                <label htmlFor='phone'>Phone Number: </label>
+                <input type="text" value={userData.phone} name="phone" id="phone" onChange={handleUserData}></input>
             </div> 
             <div>
-                <label for='email'>Email: </label>
-                <input type="text" value="email" name="email" id="email" onChange={e => setPassword(e.target.password)}></input>
+                <label htmlFor='email'>Email: </label>
+                <input type="text" value={userData.email} name="email" id="email" onChange={handleUserData}></input>
             </div> 
             <div>
-                <label for='email'>Country: </label>
-                <input type="text" value="country" name="country" id="country" onChange={e => setPassword(e.target.password)}></input>
+                <label htmlFor='country'>Country: </label>
+                <input type="text" value={userData.country} name="country" id="country" onChange={handleUserData}></input>
             </div> 
             <div>
-                <label for='image_url'>Profile Picture: </label>
-                <input type="text" value="image_url" name="image_url" id="image_url" onChange={e => setPassword(e.target.password)}></input>
+                <label htmlFor='image_url'>Profile Picture: </label>
+                <input type="text" value={userData.country} name="image_url" id="image_url" onChange={handleUserData}></input>
             </div> 
-            <input type="submit" value="Create Account" onSubmit = {handleSubmit}></input> 
-            </div> }
+            <input type="submit" value="Create Account" ></input> 
+            </div> 
+        }
         </form>
         {!signupInfo?<button onClick ={toggleForm}>Continue</button>:<button onClick ={toggleForm}>Back</button>}
     </div>
