@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { baseUrl, headers } from '../../Globals'
+import { useNavigate } from 'react-router-dom'
 
-export default function Signup({loginUser}) {
+export default function Signup({loginUser, loggedIn}) {
     const [signupInfo, setSignupInfo] = useState(false)
     const [userData, setUserData] = useState({
         username: "",
@@ -14,6 +15,14 @@ export default function Signup({loginUser}) {
         country: "",
         image_url: ""
     })
+
+    const navigate = useNavigate()
+
+    useEffect(()=> {
+        if (loggedIn){
+            navigate("/orders")
+        }
+      }, [loggedIn])
 
     function handleUserData(e){
         const name = e.target.name
@@ -51,6 +60,7 @@ export default function Signup({loginUser}) {
         .then(data => {
             loginUser(data.user)
             localStorage.setItem('jwt', data.token)
+            navigate('/orders')
         })
 
         setUserData({

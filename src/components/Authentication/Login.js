@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { baseUrl, headers } from '../../Globals'
+import { useNavigate } from 'react-router-dom'
 
-export default function Login({loginUser}) {
+export default function Login({loginUser, loggedIn}) {
     const [userData, setUserData] = useState({
         username: "",
         password: ""
     })
+
+    const navigate = useNavigate()
+
+
+    useEffect(()=> {
+        if (loggedIn){
+            navigate("/orders")
+        }
+      }, [loggedIn])
 
     function handleUserData(e){
         const name = e.target.name
@@ -16,6 +26,7 @@ export default function Login({loginUser}) {
             [name] : value
         })
     }
+
 
     function handleSubmit(e){
         e.preventDefault();
@@ -36,6 +47,7 @@ export default function Login({loginUser}) {
         .then(data => {
             loginUser(data.user)
             localStorage.setItem('jwt', data.token)
+            navigate('/orders')
         })
 
         setUserData({

@@ -13,9 +13,12 @@ export default function Navbar({loggedIn, logOutUser}) {
             {!loggedIn? (
               <div>
             <li><Link to="/signup">Signup</Link></li>
-            <li><Link to="login">Login</Link></li> 
+            <li><Link to="/login">Login</Link></li> 
             </div>) :
+            <div>
+            <li><Link to="/orders">Orders</Link></li> 
             <li><a href="#" onClick={handleLogout}>Logout</a></li> 
+            </div>
             }
         </ul>
     </div>
