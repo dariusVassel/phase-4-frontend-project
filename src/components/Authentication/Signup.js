@@ -42,9 +42,6 @@ export default function Signup({loginUser}) {
             }
         }
 
-        console.log(strongParams)
-
-
         fetch(baseUrl + '/users',{
             method: "POST",
             headers,
