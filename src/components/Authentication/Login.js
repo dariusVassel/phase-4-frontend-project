@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { baseUrl, headers } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
+import { Container, Form, FormContent, FormWrap, Icon, FormH1, FormLabel, FormButton, FormInput, Text, IconWrap, CloseIcon } from './LoginElements'
+import ScrollToTop from '../ScrollToTop'
 
 export default function Login({loginUser, loggedIn}) {
     const [userData, setUserData] = useState({
@@ -58,22 +60,46 @@ export default function Login({loginUser, loggedIn}) {
 
 
     return (
-    <div>
-        <h1>Login:</h1>
-        <form onSubmit = {handleSubmit}>
-            <div>
-            <div>
-                <label htmlFor='username'>Username: </label>
-                <input type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}></input>
-            </div>
-            <div>
-                <label htmlFor='password ' >Password: </label>
-                <input type="password" value={userData.password} name="password" id="password" onChange={handleUserData}></input>
-            </div> 
-            <input type="submit" value="Login" ></input> 
-            </div> 
-        </form>
-    </div>
+        <>
+        <ScrollToTop/>
+        <Container>
+            <IconWrap to="/">
+                <CloseIcon/>
+            </IconWrap>
+            <FormWrap>
+                {/* <Icon to="/">withthe<b>tide</b></Icon> */}
+                <FormContent>
+                    <Form onSubmit = {handleSubmit}>
+                        <FormH1>
+                            Sign in to your account:
+                        </FormH1>
+                        <FormLabel htmlFor='for'>Username</FormLabel>
+                        <FormInput  required type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}/>
+                        <FormLabel htmlFor='for'>Password</FormLabel>
+                        <FormInput type="password" value={userData.password} name="password" id="password" onChange={handleUserData} required/>
+                        <FormButton type="submit">Login</FormButton>
+                        <Text>Forgot password</Text>
+                    </Form>
+                </FormContent>
+            </FormWrap>
+        </Container>
+        </>
+        
   )
 }
+
+// {/* <h1>Login:</h1>
+//         <form onSubmit = {handleSubmit}>
+//             <div>
+//             <div>
+//                 <label htmlFor='username'>Username: </label>
+//                 <input type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}></input>
+//             </div>
+//             <div>
+//                 <label htmlFor='password ' >Password: </label>
+//                 <input type="password" value={userData.password} name="password" id="password" onChange={handleUserData}></input>
+//             </div> 
+//             <input type="submit" value="Login" ></input> 
+//             </div> 
+//         </form> */}
 

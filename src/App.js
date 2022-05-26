@@ -11,13 +11,18 @@ import Order from './components/Orders/Order';
 import Sidebar from './components/Sidebar/Sidebar';
 
 
+
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [orders, setOrders] = useState([])
   const [products, setProducts] = useState([])
+  const [isOpen, setIsOpen] = useState(false)
   const [loggedIn, setLoggedIn] =useState(false);
 
-
+  function toggleSideBar(e){
+    console.log('sam', isOpen)
+    setIsOpen(!isOpen)
+  }
   function loginUser(user){
     setCurrentUser(user)
     setLoggedIn(true)
@@ -80,10 +85,10 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Sidebar/>
-        <Navbar loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser} handleGetProducts={handleGetProducts}/>
+        <Sidebar isOpen={isOpen} toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser}/>
+        <Navbar toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser} handleGetProducts={handleGetProducts}/>
         <Routes>
-          <Route path="/" element={<Home/>}/>
+          <Route path="/" element={<Home loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser} handleGetProducts={handleGetProducts}/>}/>
           <Route path="/signup" element={<Signup loginUser= {loginUser} loggedIn = {loggedIn}/>}/>
           <Route path="/login" element={<Login loginUser= {loginUser} loggedIn = {loggedIn}/>}/>
           <Route path="/orders" element={<OrdersList loggedIn = {loggedIn} orders={orders}/>}/>

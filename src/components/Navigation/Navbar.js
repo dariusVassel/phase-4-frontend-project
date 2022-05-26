@@ -1,9 +1,27 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {FaBars} from 'react-icons/fa'
+import { IconContext } from 'react-icons/lib';
 import {Link} from 'react-router-dom';
-import { NavbarContainer, NavLogo, Nav, MobileIcon, NavMenu, NavItem, NavLinks, NavBtn, NavBtnLink } from './NavbarElements';
+import { NavbarContainer, NavLogo, Nav, MobileIcon, NavMenu, NavItem, NavLinks, NavLinks2, NavBtn, NavBtnLink } from './NavbarElements';
+import {animateScroll as scroll} from 'react-scroll'
 
-export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts}) {
+export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts, toggleSideBar}) {
+  const [scrollNav, setScrollNav] = useState(false)
+
+  function changeNav(){
+    if(window.scrollY >= 200){
+      setScrollNav(true);
+    }else{
+      setScrollNav(false);
+      }
+    };
+  
+
+  useEffect(() => {
+    window.addEventListener('scroll', changeNav)
+  }, []);
+  
+
   function handleLogout(e){
     e.preventDefault()
     logOutUser()
@@ -13,49 +31,86 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
     handleGetProducts(e)
   }
 
+  function handleClick2(){
+    console.log('hey')
+    toggleSideBar()
+  }
+
+  function toggleHome(){
+    scroll.scrollToTop()
+  }
+
   return (
-    <div>
-        <Nav>
+    
+      <IconContext.Provider value={{color: '#fff'}}>
+        <Nav scrollNav={scrollNav} >
           <NavbarContainer>
-            <NavLogo to="/">withthe<b>tide</b></NavLogo>
-            <MobileIcon>
+            <NavLogo to="/" onClick={toggleHome}>withthe<b>tide</b></NavLogo>
+            <MobileIcon onClick={handleClick2}>
               <FaBars/>
-            </MobileIcon>
+            </MobileIcon >
+            {!loggedIn?(
+            <>
             <NavMenu>
               <NavItem>
-                <NavLinks to="about">About</NavLinks>
+                <NavLinks to="about" smooth={true} duration={500} spy={true} exact='true' offset={-80}>About</NavLinks>
               </NavItem>
               <NavItem>
-                <NavLinks to="discover">Discover</NavLinks>
+                <NavLinks to="discover" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Discover</NavLinks>
               </NavItem>
               <NavItem>
-                <NavLinks to="services">Services</NavLinks>
+                <NavLinks to="services" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Services</NavLinks>
               </NavItem>
               <NavItem>
-                <NavLinks to="signup">Sign Up</NavLinks>
+                <NavLinks to="signup" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Sign Up</NavLinks>
               </NavItem>
             </NavMenu>
             <NavBtn>
               <NavBtnLink to='/login'>Login</NavBtnLink>
             </NavBtn>
+            </>
+             ) : (
+            <>
+            <NavMenu>
+              <NavItem>
+                <NavLinks2 to="/orders" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Orders</NavLinks2>
+              </NavItem>
+              <NavItem>
+                <NavLinks2 to="/contacts" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Contacts</NavLinks2>
+              </NavItem>
+              <NavItem>
+                <NavLinks2 to="/products" onClick={handleClick} smooth={true} duration={500} spy={true} exact='true' offset={-80}>Products</NavLinks2>
+              </NavItem>
+              <NavItem>
+                <NavLinks2 to="" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Welcome {currentUser.first_name}</NavLinks2>
+              </NavItem>
+            </NavMenu>
+            <NavBtn>
+              <NavBtnLink to='/' onClick={handleLogout}>Logout</NavBtnLink>
+            </NavBtn>
+            </>
+             )
+             }
           </NavbarContainer>
         </Nav>
-        {/* <ul>
-            <li><Link to="/">Home</Link></li>
-            {!loggedIn? (
-              <div>
-            <li><Link to="/signup">Signup</Link></li>
-            <li><Link to="/login">Login</Link></li> 
-            </div>) :
-            <div>
-            <li>Welcome {currentUser.username}</li>
-            <img src={currentUser.image_url} alt="profile picture"/>
-            <li><Link to="/orders">Orders</Link></li> 
-            <li><Link to="/products" onClick={handleClick}>Products</Link></li> 
-            <li><a href="#" onClick={handleLogout}>Logout</a></li> 
-            </div>
-            }
-        </ul> */}
-    </div>
+        </IconContext.Provider>
+
   )
 }
+
+// {/* <ul>
+//             {!loggedIn? 
+//             (
+//               <div>
+//             <li><Link to="/signup">Signup</Link></li>
+//             </div>)
+//              :
+//             <div>
+//             <li>Welcome {currentUser.username}</li>
+//             <img src={currentUser.image_url} alt="profile picture"/>
+//             <li><Link to="/orders">Orders</Link></li> 
+//             <li><Link to="/products" onClick={handleClick}>Products</Link></li> 
+//             <li><a href="#" onClick={handleLogout}>Logout</a></li> 
+//             </div>
+//             }
+//         </ul> */}
