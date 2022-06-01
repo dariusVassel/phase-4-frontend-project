@@ -27,7 +27,7 @@ export default function Sidebar({toggleSideBar, isOpen, loggedIn, logOutUser, cu
         ) : (
         <SidebarWrapper>
             <SidebarMenu>
-                <SidebarLink to="" onClick ={toggleSideBar}>Welcome {currentUser.first_name}</SidebarLink>
+                <SidebarLink to="" onClick ={toggleSideBar}>Welcome </SidebarLink>
                 <SidebarLink to="/orders" onClick ={toggleSideBar}>Orders</SidebarLink>
                 <SidebarLink to="/contacts" onClick ={toggleSideBar}>Contacts</SidebarLink>
                 <SidebarLink to="/products" onClick ={toggleSideBar}>Products</SidebarLink>  

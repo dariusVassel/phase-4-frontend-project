@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import { NavbarContainer, NavLogo, Nav, MobileIcon, NavMenu, NavItem, NavLinks, NavLinks2, NavBtn, NavBtnLink } from './NavbarElements';
 import {animateScroll as scroll} from 'react-scroll'
 
-export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts, toggleSideBar}) {
+export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts, handleGetContacts, toggleSideBar}) {
   const [scrollNav, setScrollNav] = useState(false)
 
   function changeNav(){
@@ -29,6 +29,10 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
 
   function handleClick(e){
     handleGetProducts(e)
+  }
+
+  function handleContactClick(e){
+    handleGetContacts(e)
   }
 
   function handleClick2(){
@@ -73,16 +77,16 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
             <>
             <NavMenu>
               <NavItem>
-                <NavLinks2 to="/orders" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Orders</NavLinks2>
+                <NavLinks2 to=""  duration={500} exact='true' offset={-80}>Dashboard</NavLinks2>
               </NavItem>
               <NavItem>
-                <NavLinks2 to="/contacts" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Contacts</NavLinks2>
+                <NavLinks2 to="/orders"  duration={500}  exact='true' offset={-80}>Orders</NavLinks2>
               </NavItem>
               <NavItem>
-                <NavLinks2 to="/products" onClick={handleClick} smooth={true} duration={500} spy={true} exact='true' offset={-80}>Products</NavLinks2>
+                <NavLinks2 to="/contacts" onClick={handleContactClick}  duration={500}  exact='true' offset={-80}>Contacts</NavLinks2>
               </NavItem>
               <NavItem>
-                <NavLinks2 to="" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Welcome {currentUser.first_name}</NavLinks2>
+                <NavLinks2 to="/products" onClick={handleClick}  duration={500}  exact='true' offset={-80}>Products</NavLinks2>
               </NavItem>
             </NavMenu>
             <NavBtn>

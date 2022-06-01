@@ -9,18 +9,11 @@ import Navbar from '../../components/Navigation/Navbar';
 
 
 
-export default function Home({loggedIn, logOutUser, currentUser, handleGetProducts}) {
-  // const [isOpen, setIsOpen] = useState(false)
+export default function Home() {
 
-  // function toggleSideBar(e){
-  //   console.log('sam', isOpen)
-  //   setIsOpen(!isOpen)
-  // }
 
   return (
     <div>
-        {/* <Sidebar isOpen={isOpen} toggleSideBar={toggleSideBar}/>
-        <Navbar toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser} handleGetProducts={handleGetProducts}/> */}
         <LandingSection/>
         <InfoSection {...homeObjOne }/>
         <InfoSection {...homeObjTwo }/>

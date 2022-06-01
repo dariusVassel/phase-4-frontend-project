@@ -78,7 +78,7 @@ export default function Signup({loginUser, loggedIn}) {
 
     function toggleForm() {
         setSignupInfo(!signupInfo);
-    }
+    } 
 
     return (
     <div>
