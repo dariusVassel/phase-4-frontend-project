@@ -66,7 +66,7 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
                 <NavLinks to="services" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Services</NavLinks>
               </NavItem>
               <NavItem>
-                <NavLinks to="signup" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Sign Up</NavLinks>
+                <NavBtnLink to="/signup" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Sign Up</NavBtnLink>
               </NavItem>
             </NavMenu>
             <NavBtn>

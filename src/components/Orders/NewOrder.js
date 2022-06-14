@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function NewOrder({currentUser}) {
     // When back create new order form 
+    const [errors, setErrors] = useState([]);
 
     const navigate = useNavigate()
 
@@ -237,6 +238,13 @@ export default function NewOrder({currentUser}) {
         })
     }
 
+    // .then((response) => {
+    //     if (response.ok) {
+    //       response.json().then((newMovie) => console.log(newMovie));
+    //     } else {
+    //       response.json().then((errorData) => setErrors(errorData.errors));
+    //     }
+    //   })
     // function handleSubmit(){
     //     console.log(newOrder)
     //     console.log(currentUser.id)
@@ -346,6 +354,14 @@ export default function NewOrder({currentUser}) {
                 <TextField id="shipping_date" name="shipping_date" label="Shipping Date" type="date" defaultValue="2022-01-01" sx={{ width: 220 }} InputLabelProps={{
                     shrink: true,
                     }} onChange={handleFormData}/>
+
+                {/* {errors.length > 0 && (
+                    <ul style={{ color: "red" }}>
+                    {errors.map((error) => (
+                        <li key={error}>{error}</li>
+                    ))}
+                    </ul>
+                )} */}
             </Box>
         </Paper>
         <br/>
