@@ -12,6 +12,9 @@
 - npm install
 - npm start
 
+Frontend Git Link:
+https://github.com/dariusVassel/phase-4-frontend-project
+
 # Licensing
 
 Copyright (c) 2012-2022 Samarth Gwalani
