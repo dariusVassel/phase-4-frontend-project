@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { baseUrl, headers } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
+import { Container, Form, FormContent, FormWrap, Icon, FormH1, FormLabel, FormButton, FormInput, Text, IconWrap, CloseIcon } from './LoginElements'
+import ScrollToTop from '../ScrollToTop'
+
 
 export default function Signup({loginUser, loggedIn}) {
     const [signupInfo, setSignupInfo] = useState(false)
@@ -81,55 +84,59 @@ export default function Signup({loginUser, loggedIn}) {
     } 
 
     return (
-    <div>
-        <h1>Create Account:</h1>
-        <form onSubmit = {handleSubmit}>
-            {!signupInfo ?
-            <div>
-            <div>
-                <label htmlFor='username'>Username: </label>
-                <input type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}></input>
-            </div>
-            <div>
-                <label htmlFor='password ' >Password: </label>
-                <input type="password" value={userData.password} name="password" id="password" onChange={handleUserData}></input>
-            </div> 
-            </div>
-            : 
-            <div>
-            <div>
-                <label htmlFor='first_name' >First Name: </label>
-                <input type="text" value={userData.first_name} name="first_name" id="first_name" onChange={handleUserData}></input>
-            </div> 
-            <div>
-                <label htmlFor='last_name' >Last Name: </label>
-                <input type="text" value={userData.last_name} name="last_name" id="last_name" onChange={handleUserData}></input>
-            </div> 
-            <div>
-                <label htmlFor='bio'>Bio: </label>
-                <input type="text" value={userData.bio} name="bio" id="bio" onChange={handleUserData}></input>
-            </div> 
-            <div>
-                <label htmlFor='phone'>Phone Number: </label>
-                <input type="text" value={userData.phone} name="phone" id="phone" onChange={handleUserData}></input>
-            </div> 
-            <div>
-                <label htmlFor='email'>Email: </label>
-                <input type="text" value={userData.email} name="email" id="email" onChange={handleUserData}></input>
-            </div> 
-            <div>
-                <label htmlFor='country'>Country: </label>
-                <input type="text" value={userData.country} name="country" id="country" onChange={handleUserData}></input>
-            </div> 
-            <div>
-                <label htmlFor='image_url'>Profile Picture: </label>
-                <input type="text" value={userData.country} name="image_url" id="image_url" onChange={handleUserData}></input>
-            </div> 
-            <input type="submit" value="Create Account" ></input> 
-            </div> 
-        }
-        </form>
-        {!signupInfo?<button onClick ={toggleForm}>Continue</button>:<button onClick ={toggleForm}>Back</button>}
-    </div>
+        <>
+            <ScrollToTop/>
+            <Container>
+                <IconWrap to="/">
+                    <CloseIcon/>
+                </IconWrap>
+                <FormWrap>
+                <FormContent>
+                    <Form onSubmit = {handleSubmit}>
+                        <FormH1>
+                            Create Account:
+                        </FormH1>
+                        {!signupInfo ?
+                        <>
+                            <FormLabel htmlFor='username'>Username</FormLabel>
+                            <FormInput  required type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}/>
+
+                            <FormLabel htmlFor='password'>Password</FormLabel>
+                            <FormInput  required type="password"  value={userData.password} name="password" id="password" onChange={handleUserData}/>
+                        </>
+                        : 
+                        <div>
+                        
+                            <FormLabel htmlFor='first_name' >First Name: </FormLabel>
+                            <FormInput type="text" value={userData.first_name} name="first_name" id="first_name" onChange={handleUserData}></FormInput>
+
+                            <FormLabel htmlFor='last_name' >Last Name: </FormLabel>
+                            <FormInput type="text" value={userData.last_name} name="last_name" id="last_name" onChange={handleUserData}></FormInput>
+                        
+                            <FormLabel htmlFor='bio'>Bio: </FormLabel>
+                            <FormInput type="text" value={userData.bio} name="bio" id="bio" onChange={handleUserData}></FormInput>
+                        
+                            <FormLabel htmlFor='phone'>Phone Number: </FormLabel>
+                            <FormInput type="text" value={userData.phone} name="phone" id="phone" onChange={handleUserData}></FormInput>
+                        
+                            <FormLabel htmlFor='email'>Email: </FormLabel>
+                            <FormInput type="text" value={userData.email} name="email" id="email" onChange={handleUserData}></FormInput>
+                        
+                            <FormLabel htmlFor='country'>Country: </FormLabel>
+                            <FormInput type="text" value={userData.country} name="country" id="country" onChange={handleUserData}></FormInput>
+                        
+                            <FormLabel htmlFor='image_url'>Profile Picture: </FormLabel>
+                            <FormInput type="text" value={userData.country} name="image_url" id="image_url" onChange={handleUserData}></FormInput>
+                        
+                            <FormButton type="submit" value="Create Account" ></FormButton> 
+                        </div> 
+                        }
+                        
+                        {!signupInfo?<FormButton onClick ={toggleForm}>Continue</FormButton>:<FormButton onClick ={toggleForm}>Back</FormButton>}
+                        </Form>
+                    </FormContent>
+                </FormWrap>
+            </Container>
+        </>
   )
 }

@@ -113,6 +113,7 @@ cursor: pointer;
 export const NavBtn = styled.nav`
 display: flex;
 align-items: center;
+margin-right: 20px;
 
 @media screen and (max-width: 768px){
     display: none;
@@ -120,6 +121,8 @@ align-items: center;
 `
 
 export const NavBtnLink= styled(Link)`
+
+
 border-radius: 50px;
 background: #026BFB;
 white-space: nowrap;
@@ -131,6 +134,7 @@ border: none;
 cursor: pointer;
 transition: all 0.2s ease-in-out;
 text-decoration: none;
+
 
 &:hover {
     transition: all 0.2s ease-in-out;

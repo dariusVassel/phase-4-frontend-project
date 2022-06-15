@@ -56,7 +56,7 @@ export default function Login({loginUser, loggedIn}) {
             username: "",
             password: ""
         })
-    }
+    } 
 
 
     return (
