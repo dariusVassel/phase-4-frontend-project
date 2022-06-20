@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 
-export default function NewOrder({currentUser}) {
+export default function NewOrder({currentUser, handleGetOrders}) {
     // When back create new order form 
     const [errors, setErrors] = useState([]);
 
@@ -207,7 +207,8 @@ export default function NewOrder({currentUser}) {
         })
         .then(resp => resp.json())
         .then(data => {
-            navigate('/')
+            handleGetOrders(e)
+            navigate('/orders')
         })
 
         setNewOrder({
@@ -367,7 +368,7 @@ export default function NewOrder({currentUser}) {
         <br/>
         <br/>
         <Button onClick = {handleSubmit} variant="outlined">Create Order</Button>
-
+        {/* <Button onClick = {()=>console.log(newOrder)} variant="outlined">Create Order</Button> */}
         </Container>
     </>
     

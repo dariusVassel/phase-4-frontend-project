@@ -15,6 +15,10 @@ import NewOrder from './components/Orders/NewOrder';
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [orders, setOrders] = useState([])
+  const [products, setProducts] = useState([])
+  const [contacts, setContacts] = useState([])
+  const [isOpen, setIsOpen] = useState(false)
+  const [loggedIn, setLoggedIn] =useState(false);
 
   const [individualOrder, setIndividualOrder] = useState(
   {
@@ -60,14 +64,10 @@ function App() {
     }
 })
 
-  const [products, setProducts] = useState([])
-  const [contacts, setContacts] = useState([])
-  const [isOpen, setIsOpen] = useState(false)
-  const [loggedIn, setLoggedIn] =useState(false);
-  
   function toggleSideBar(e){
     setIsOpen(!isOpen)
   }
+
   function loginUser(user){
     setCurrentUser(user)
     setLoggedIn(true)
@@ -93,6 +93,7 @@ function App() {
         .then(resp => resp.json())
         .then(user => {
           loginUser(user)
+          setCurrentUser(user)
         })
 
         if (!loggedIn){
@@ -104,9 +105,7 @@ function App() {
           })
           .then(resp => resp.json())
           .then(data => {
-            // console.log(data)
             setOrders(data)
-            
         })
         }
     }
@@ -136,6 +135,19 @@ function App() {
     .then(data => {
       // console.log(data)
       setContacts(data)
+  })}
+
+  function handleGetOrders(e){
+    fetch(baseUrl + '/orders', {
+      headers: {
+        ...headers,
+        ...getToken()
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      // console.log(data)
+      setOrders(data)
   })}
 
   function handleDeleteOrder(id) {
@@ -172,14 +184,14 @@ function App() {
     <div className="App">
       <Router>
         <Sidebar isOpen={isOpen} toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser}/>
-        <Navbar toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser} handleGetProducts={handleGetProducts} handleGetContacts={handleGetContacts}/>
+        <Navbar toggleSideBar={toggleSideBar} loggedIn ={loggedIn} logOutUser={logOutUser} currentUser={currentUser} handleGetProducts={handleGetProducts} handleGetContacts={handleGetContacts} handleGetOrders={handleGetOrders}/>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/signup" element={<Signup loginUser= {loginUser} loggedIn = {loggedIn}/>}/>
-          <Route path="/login" element={<Login loginUser= {loginUser} loggedIn = {loggedIn}/>}/>
-          <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} orders={orders} handleDeleteOrder={handleDeleteOrder} currentUser ={currentUser} handleGetOrder={handleGetOrder}/>} />
-          <Route path="/new_order" element={<NewOrder loggedIn = {loggedIn} contacts={contacts} currentUser={currentUser}/>}/>
-          <Route path="/orders/:id" element={<Order loggedIn = {loggedIn} order={individualOrder} orders={orders} handleDeleteOrder={handleDeleteOrder} currentUser ={currentUser} />}/>
+          <Route path="/signup" element={<Signup loginUser= {loginUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
+          <Route path="/login" element={<Login loginUser= {loginUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
+          <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} orders={orders} handleDeleteOrder={handleDeleteOrder} currentUser ={currentUser} handleGetOrder={handleGetOrder} />} />
+          <Route path="/new_order" element={<NewOrder loggedIn = {loggedIn} contacts={contacts} currentUser={currentUser} handleGetOrders={handleGetOrders}/>}/>
+          <Route path="/orders/:id" element={<Order loggedIn = {loggedIn} order={individualOrder} orders={orders} handleDeleteOrder={handleDeleteOrder} currentUser ={currentUser} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/products" element={<ProductsList loggedIn = {loggedIn} products ={products}/>}/>
           <Route path="/contacts" element={<ContactList loggedIn = {loggedIn} contacts={contacts}/>}/>
         </Routes>

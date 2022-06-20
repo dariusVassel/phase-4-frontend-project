@@ -5,7 +5,7 @@ import { Container, Form, FormContent, FormWrap, Icon, FormH1, FormLabel, FormBu
 import ScrollToTop from '../ScrollToTop'
 
 
-export default function Signup({loginUser, loggedIn}) {
+export default function Signup({loginUser, loggedIn, handleGetOrders}) {
     const [signupInfo, setSignupInfo] = useState(false)
     const [userData, setUserData] = useState({
         username: "",
@@ -63,6 +63,7 @@ export default function Signup({loginUser, loggedIn}) {
         .then(data => {
             loginUser(data.user)
             localStorage.setItem('jwt', data.token)
+            handleGetOrders(e)
             navigate('/orders')
         })
 
@@ -96,7 +97,14 @@ export default function Signup({loginUser, loggedIn}) {
                         <FormH1>
                             Create Account:
                         </FormH1>
-                        {!signupInfo ?
+                        <>
+                            <FormLabel htmlFor='username'>Username</FormLabel>
+                            <FormInput  required type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}/>
+
+                            <FormLabel htmlFor='password'>Password</FormLabel>
+                            <FormInput  required type="password"  value={userData.password} name="password" id="password" onChange={handleUserData}/>
+                        </>
+                        {/* {!signupInfo ?
                         <>
                             <FormLabel htmlFor='username'>Username</FormLabel>
                             <FormInput  required type="text"  value={userData.username} name="username" id="username" onChange={handleUserData}/>
@@ -130,9 +138,11 @@ export default function Signup({loginUser, loggedIn}) {
                         
                             <FormButton type="submit" value="Create Account" ></FormButton> 
                         </div> 
-                        }
-                        
-                        {!signupInfo?<FormButton onClick ={toggleForm}>Continue</FormButton>:<FormButton onClick ={toggleForm}>Back</FormButton>}
+                        } */}
+                        {/* {!signupInfo?<FormButton onClick ={toggleForm}>Continue</FormButton>:<FormButton onClick ={toggleForm}>Back</FormButton>} */}
+
+                        <FormButton type="submit">Sign Up</FormButton>
+
                         </Form>
                     </FormContent>
                 </FormWrap>

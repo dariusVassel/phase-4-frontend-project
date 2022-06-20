@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import { NavbarContainer, NavLogo, Nav, MobileIcon, NavMenu, NavItem, NavLinks, NavLinks2, NavBtn, NavBtnLink } from './NavbarElements';
 import {animateScroll as scroll} from 'react-scroll'
 
-export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts, handleGetContacts, toggleSideBar}) {
+export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProducts, handleGetContacts, toggleSideBar, handleGetOrders}) {
   const [scrollNav, setScrollNav] = useState(false)
 
   function changeNav(){
@@ -33,6 +33,10 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
 
   function handleContactClick(e){
     handleGetContacts(e)
+  }
+
+  function handleOrderClick(e){
+    handleGetOrders(e)
   }
 
   function handleClick2(){
@@ -65,6 +69,9 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
               <NavItem>
                 <NavLinks to="services" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Services</NavLinks>
               </NavItem>
+              <NavItem>
+                <NavLinks to="signup" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Contact</NavLinks>
+              </NavItem>
             </NavMenu>
             <NavBtn>
               <NavBtnLink to='/signup' >Sign Up</NavBtnLink>
@@ -78,7 +85,7 @@ export default function Navbar({loggedIn, logOutUser, currentUser, handleGetProd
                 <NavLinks2 to=""  duration={500} exact='true' offset={-80}>Dashboard</NavLinks2>
               </NavItem>
               <NavItem>
-                <NavLinks2 to="/orders"  duration={500}  exact='true' offset={-80}>Orders</NavLinks2>
+                <NavLinks2 to="/orders" onClick={handleOrderClick} duration={500}  exact='true' offset={-80}>Orders</NavLinks2>
               </NavItem>
               <NavItem>
                 <NavLinks2 to="/contacts" onClick={handleContactClick}  duration={500}  exact='true' offset={-80}>Contacts</NavLinks2>

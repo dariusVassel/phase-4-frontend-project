@@ -30,7 +30,7 @@ import EditOrderForm from './EditOrderForm'
 
 
 
-export default function Order({orders, handleDeleteOrder, order, loggedIn, currentUser }) {
+export default function Order({orders, handleDeleteOrder, order, loggedIn, currentUser, handleGetOrders}) {
     const [editOrder, setEditOrder] = useState(false)
 
     function handleClick(){
@@ -112,7 +112,7 @@ export default function Order({orders, handleDeleteOrder, order, loggedIn, curre
               </>
               ) : (
                 <>
-                <EditOrderForm order={order} currentUser={currentUser}/>
+                <EditOrderForm order={order} currentUser={currentUser} handleGetOrders={handleGetOrders}/>
                 </>
               )}
             </Box>

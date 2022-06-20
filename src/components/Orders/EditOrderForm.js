@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 
-export default function EditOrderForm({order, currentUser}) {
+export default function EditOrderForm({order, currentUser, handleGetOrders}) {
     const navigate = useNavigate()
 
     const [packing, setPacking] = useState("");
@@ -112,7 +112,7 @@ export default function EditOrderForm({order, currentUser}) {
         const name = e.target.name
         const value = e.target.value
 
-        console.log(name, value)
+        // console.log(name, value)
     
         setEditOrder({
             ...editOrder,
@@ -159,7 +159,7 @@ export default function EditOrderForm({order, currentUser}) {
         })
         .then(resp => resp.json())
         .then(data => {
-            console.log(data)
+            handleGetOrders(e)
             navigate('/orders')
         })
 
@@ -283,13 +283,9 @@ export default function EditOrderForm({order, currentUser}) {
 
             <br/>
         <br/>
-        <Button onClick = {handleSubmit} variant="outlined">Create Order</Button>
-        <Button onClick = {()=>console.log(editOrder)} variant="outlined">Create Order</Button>
-                
-
-
-
-                
+        <Button onClick = {handleSubmit} variant="outlined">Update Order</Button>
+        {/* <Button onClick = {()=>console.log(editOrder)} variant="outlined">Console Log</Button>
+                 */}    
     </div>
   )
 }
