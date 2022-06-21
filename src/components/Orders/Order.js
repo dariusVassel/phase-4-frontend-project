@@ -27,6 +27,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 
 import Image from '../../svgs/download.png'
 import EditOrderForm from './EditOrderForm'
+import Footer from '../../Footer/Footer'
 
 
 
@@ -120,6 +121,11 @@ export default function Order({orders, handleDeleteOrder, order, loggedIn, curre
           
         </Grid>
       </Container>
+      <br/>
+        <br/>
+        
+      <Footer/>
+        
     </>
   )
 }

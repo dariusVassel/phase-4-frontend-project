@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { baseUrl, headers, getToken } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
+import Footer from '../../Footer/Footer';
 
 
 
@@ -370,6 +371,9 @@ export default function NewOrder({currentUser, handleGetOrders}) {
         <Button onClick = {handleSubmit} variant="outlined">Create Order</Button>
         {/* <Button onClick = {()=>console.log(newOrder)} variant="outlined">Create Order</Button> */}
         </Container>
+        <br/>
+        <br/>
+        <Footer/>
     </>
     
   )

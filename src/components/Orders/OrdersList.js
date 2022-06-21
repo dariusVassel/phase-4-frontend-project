@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import NewOrder from './NewOrder'
 import OrderCard from './OrderCard'
 import { baseUrl, headers, getToken } from '../../Globals'
+import Stack from '@mui/material/Stack';
 
 import { Paper, Container, Box, Grid } from '@mui/material'
 
@@ -18,12 +19,27 @@ import Button from '@mui/material/Button';
 
 import {Link} from 'react-router-dom'
 
+import TextField from '@mui/material/TextField';
+
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Footer from '../../Footer/Footer'
 
 
 
 
-export default function OrdersList({loggedIn, orders, handleDeleteOrder, handleGetOrder, navigateOrder }) {
-    const navigate = useNavigate()
+
+
+
+
+
+
+export default function OrdersList({loggedIn, orders, handleDeleteOrder, handleGetOrder, navigateOrder, handleSearchOrder }) {
+  const [status, setStatus] = useState('');
+  const [searchTerm, setSearchTerm] = useState('')  
+  const navigate = useNavigate()
     useEffect(()=> {
         if (!loggedIn){
             navigate("/login")
@@ -61,7 +77,13 @@ export default function OrdersList({loggedIn, orders, handleDeleteOrder, handleG
             format: (value) => value.toFixed(2),
           },
         ];
-    const ordersCards = orders.map(order => <OrderCard key={order.id} order={order} handleDeleteOrder={handleDeleteOrder} handleGetOrder={handleGetOrder}/>)
+    const ordersCards = orders.filter((order) => {
+      if (searchTerm == ""){
+        return order
+      } else if (order.product.name.toLowerCase().includes(searchTerm.toLowerCase())){
+        return order
+      }
+    }).map(order => <OrderCard key={order.id} order={order} handleDeleteOrder={handleDeleteOrder} handleGetOrder={handleGetOrder}/>)
     
     function handleClick(order_id){
       fetch(baseUrl + `/orders/${order_id}`, {
@@ -82,9 +104,18 @@ export default function OrdersList({loggedIn, orders, handleDeleteOrder, handleG
       handleDeleteOrder(order_id)
     }
 
+    const handleChange = (event) => {
+      setStatus(event.target.value);
+    };
+
+    function handleSearch(e){
+      handleSearchOrder(e)
+    }
+
 
 
   return (
+    <>
     <Container>
       <br/>
       <br/>
@@ -98,13 +129,32 @@ export default function OrdersList({loggedIn, orders, handleDeleteOrder, handleG
             
       <Paper sx={{ width: '100%', overflow: 'hidden' }} elevation = {4}  padding = {4}>
             <TableContainer sx={{ maxHeight: 1000 }}>
+              <Stack>
+                <TextField id="filled-search" label="Search Product" type="search" variant="filled" colSpan={2} onChange={event => setSearchTerm(event.target.value)}/>
+                
+                <br/>
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl style={{m: 1,minWidth: 120}}>
+                  <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                    <Select labelId="demo-simple-select-label" id="demo-simple-select" value={status} label="Status" onChange={handleChange}>
+                      <MenuItem value={"All"}>All</MenuItem>
+                      <MenuItem value={"New Order"}>New Order</MenuItem>
+                      <MenuItem value={"Complete"}>Complete</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Stack>
               <Table stickyHeader aria-label="sticky table">
+              
                 <TableHead>
                   <TableRow>
                     <TableCell align="center" colSpan={2}>
                      <b>Orders</b> 
                     </TableCell>
+                    
                   </TableRow>
+                  
+                  
                   <TableRow>
                     {columns.map((column) => (
                     <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>{column.label}</TableCell>
@@ -112,7 +162,14 @@ export default function OrdersList({loggedIn, orders, handleDeleteOrder, handleG
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {orders.map((order) => (
+                  {orders.filter((order) => {
+                    if (searchTerm == ""){
+                      return order
+                    } else if (order.product.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                      return order
+                    }
+                  })
+                  .map((order) => (
                   <TableRow key={order.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} hover>
                     <TableCell component="th" scope="row" >{order.PO}</TableCell>
                     <TableCell align="center" >{order.order_status}</TableCell>
@@ -134,6 +191,12 @@ export default function OrdersList({loggedIn, orders, handleDeleteOrder, handleG
             </TableContainer>
       </Paper>
     </Container>
+    <br/>
+      <br/>
+      <br/>
+      
+    <Footer/>
+    </>
   )
 }
 

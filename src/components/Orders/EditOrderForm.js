@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 
 import { baseUrl, headers, getToken } from '../../Globals'
 import { useNavigate } from 'react-router-dom'
+import Footer from '../../Footer/Footer';
 
 
 
@@ -285,7 +286,8 @@ export default function EditOrderForm({order, currentUser, handleGetOrders}) {
         <br/>
         <Button onClick = {handleSubmit} variant="outlined">Update Order</Button>
         {/* <Button onClick = {()=>console.log(editOrder)} variant="outlined">Console Log</Button>
-                 */}    
+                 */} 
+                  
     </div>
   )
 }

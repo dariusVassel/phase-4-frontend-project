@@ -11,6 +11,7 @@ import Order from './components/Orders/Order';
 import Sidebar from './components/Sidebar/Sidebar';
 import ContactList from './components/Contacts/ContactList';
 import NewOrder from './components/Orders/NewOrder';
+import Profile from './components/Profile/Profile';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -175,6 +176,10 @@ function App() {
     console.log("after", individualOrder)
   }
 
+  function handleSearchOrder(e){
+    console.log(e.target.value)
+  }
+
   
 
 
@@ -189,11 +194,12 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/signup" element={<Signup loginUser= {loginUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/login" element={<Login loginUser= {loginUser} loggedIn = {loggedIn} handleGetOrders={handleGetOrders}/>}/>
-          <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} orders={orders} handleDeleteOrder={handleDeleteOrder} currentUser ={currentUser} handleGetOrder={handleGetOrder} />} />
+          <Route path="/orders" element={<OrdersList  loggedIn = {loggedIn} orders={orders} handleDeleteOrder={handleDeleteOrder} currentUser ={currentUser} handleGetOrder={handleGetOrder} handleSearchOrder={handleSearchOrder}/>} />
           <Route path="/new_order" element={<NewOrder loggedIn = {loggedIn} contacts={contacts} currentUser={currentUser} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/orders/:id" element={<Order loggedIn = {loggedIn} order={individualOrder} orders={orders} handleDeleteOrder={handleDeleteOrder} currentUser ={currentUser} handleGetOrders={handleGetOrders}/>}/>
           <Route path="/products" element={<ProductsList loggedIn = {loggedIn} products ={products}/>}/>
           <Route path="/contacts" element={<ContactList loggedIn = {loggedIn} contacts={contacts}/>}/>
+          <Route path="/profile" element={<Profile loggedIn = {loggedIn} contacts={contacts} currentUser ={currentUser} orders={orders}/>}/>
         </Routes>
         
       </Router>
