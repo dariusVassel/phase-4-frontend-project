@@ -1,21 +1,46 @@
-# Requirements
+# withthe tide (Rails Order Management System)
+
+Fullstack application, with a React frontend and Rails backend, used to handle orders for a Seafood company.
+
+## Description
+
+- User Authentication for signup and login procedures with bcrypt security.
+- Log in and manage orders specific to your account.
+- View, update and delete existing orders and create new orders.
+- Fully responsive frontend created with React Material UI and styled components.
+
+## Demonstration
+
+Visual walkthrough of project can be seen here: https://youtu.be/cxwFQYvl5bo
+
+## Requirements
 
 - ruby version: 2.7.3p183
 - npm version 7.21.0
 
-# How to Use
+## How to Use
 
-- bundle Install
-- run rails db:migrate db:seed
-- rails s
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Clone repository and run the following command inside this project's directory to load dependencies
 
-- npm install
-- npm start
+To set up rails backend:
 
-Frontend Git Link:
-https://github.com/dariusVassel/phase-4-frontend-project
+```bash
+bundle install
+run rails db:create db:migrate db:seed
+rails s
+```
 
-# Licensing
+To set up react frontend:
+
+```bash
+npm install
+npm start
+```
+
+Backend Git Link: https://github.com/dariusVassel/phase-4-backend-project
+
+## Licensing
 
 Copyright (c) 2012-2022 Samarth Gwalani
 
