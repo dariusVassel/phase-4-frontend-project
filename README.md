@@ -9,9 +9,6 @@ Fullstack application, with a React frontend and Rails backend, used to handle o
 - View, update and delete existing orders and create new orders.
 - Fully responsive frontend created with React Material UI and styled components.
 
-## Demonstration
-
-Visual walkthrough of project can be seen here: https://youtu.be/cxwFQYvl5bo
 
 ## Requirements
 
